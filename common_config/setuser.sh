@@ -14,17 +14,17 @@ ghostbsd_setup_liveuser()
   set_user
   chroot "${release}" su "${live_user}" -c "mkdir -p /home/${live_user}/.config/gtk-3.0"
   chroot "${release}" su "${live_user}" -c "echo '[Settings]' >> /home/${live_user}/.config/gtk-3.0/settings.ini"
-  chroot "${release}" su "${live_user}" -c "echo 'gtk-application-prefer-dark-theme = false' >> /home/${live_user}/.config/gtk-3.0/settings.ini"
+  chroot "${release}" su "${live_user}" -c "echo 'gtk-application-prefer-dark-theme = true' >> /home/${live_user}/.config/gtk-3.0/settings.ini"
   chroot "${release}" su "${live_user}" -c "echo 'gtk-theme-name = Vimix' >> /home/${live_user}/.config/gtk-3.0/settings.ini"
   chroot "${release}" su "${live_user}" -c "echo 'gtk-icon-theme-name = Vivacious-Colors-Dark' >> /home/${live_user}/.config/gtk-3.0/settings.ini"
   chroot "${release}" su "${live_user}" -c "echo 'gtk-font-name = Droid Sans Bold 12' >> /home/${live_user}/.config/gtk-3.0/settings.ini"
   mkdir -p "${release}/root/.config/gtk-3.0"
   {
     echo '[Settings]'
-    echo 'gtk-application-prefer-dark-theme = false'
+    echo 'gtk-application-prefer-dark-theme = true'
     echo 'gtk-theme-name = Vimix'
     echo 'gtk-icon-theme-name = Vivacious-Colors-Dark'
-    echo 'gtk-font-name = Droid Sans Bold 12'
+    echo 'gtk-font-name = Droid Sans Bold 10'
   } > "${release}/root/.config/gtk-3.0/settings.ini"
 }
 

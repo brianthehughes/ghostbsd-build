@@ -5,16 +5,30 @@ set -e -u
 cwd="$(realpath)"
 export cwd
 
+echo "###############################################"
+echo "##"
+echo "## GhostBSD-BUILD" 
+echo "##"
+echo "## START - " `date -Iseconds`
+echo ""
+starttime=$(date +%s)
+
+
 # Only run as superuser
 if [ "$(id -u)" != "0" ]; then
   echo "This script must be run as root" 1>&2
   exit 1
 fi
 
-# Use find to locate base files and extract filenames directly, converting newlines to spaces
+## Use find to locate base files and extract filenames directly, converting newlines to spaces
+echo "## Gather Base, Common, Drivers"
+echo ""
 find packages -type f ! -name '*base*' ! -name '*common*' ! -name '*drivers*' -exec basename {} \; | sort -u | tr '\n' ' '
+echo ""
+echo ""
 
-# Find all files in the desktop_config directory
+## Find all files in the desktop_config directory
+
 desktop_config_list=$(find desktop_config -type f)
 help_function()
 {
@@ -25,7 +39,9 @@ help_function()
   printf "\t-t Test: FreeBSD os packages\n"
    exit 1 # Exit script after printing help
 }
-# Set mate and release to be default
+
+## Set MATE and RELEASE to be default
+
 export desktop="mate"
 export build_type="release"
 
@@ -52,7 +68,8 @@ else
   exit 1
 fi
 
-# validate desktop packages
+## Validate desktop packages
+
 if [ ! -f "${cwd}/packages/${desktop}" ] ; then
   echo "The packages/${desktop} file does not exist."
   echo "Please create a package file named '${desktop}'and place it under packages/."
@@ -62,7 +79,8 @@ if [ ! -f "${cwd}/packages/${desktop}" ] ; then
   exit 1
 fi
 
-# validate desktop
+## Validate desktop config
+
 if [ ! -f "${cwd}/desktop_config/${desktop}.sh" ] ; then
   echo "The desktop_config/${desktop}.sh file does not exist."
   echo "Please create a config file named '${desktop}.sh' like these config:"
@@ -78,27 +96,32 @@ else
 fi
 
 workdir="/usr/local"
+
 livecd="${workdir}/ghostbsd-build"
+
 base="${livecd}/base"
 iso="${livecd}/iso"
 packages_storage="${livecd}/packages"
+
 release="${livecd}/release"
 export release
+
 cd_root="${livecd}/cd_root"
-live_user="ghostbsd"
+
+live_user="ghost"
 export live_user
 
 time_stamp=""
-release_stamp=""
+release_stamp="-unstable"
 label="GhostBSD"
 
 workspace()
 {
   # Unmount any existing mounts and clean up
-  umount ${packages_storage} >/dev/null 2>/dev/null || true
-  umount ${release}/dev >/dev/null 2>/dev/null || true
+  umount -f ${packages_storage} >/dev/null 2>/dev/null || true
+  umount -f ${release}/dev >/dev/null 2>/dev/null || true
   zpool destroy ghostbsd >/dev/null 2>/dev/null || true
-  umount ${release} >/dev/null 2>/dev/null || true
+  umount -f ${release} >/dev/null 2>/dev/null || true
 
   # Remove old build directory if it exists
   if [ -d "${cd_root}" ] ; then
@@ -115,10 +138,10 @@ workspace()
   fi
 
   # Create necessary directories for the build
-  mkdir -p ${livecd} ${base} ${iso} ${packages_storage}  ${release}
+  mkdir -p ${livecd} ${base} ${iso} ${packages_storage} ${release}
 
-  # Create a new pool image file of 6GB
-  POOL_SIZE='6g'
+  # Create a new pool image file of 4GB
+  POOL_SIZE='4g'
   truncate -s ${POOL_SIZE} ${livecd}/pool.img
   
   # Attach the pool image as a memory disk
@@ -142,6 +165,10 @@ workspace()
 
 base()
 {
+  echo "## Building BASE" 
+  echo "## Building BASE" 
+  echo "" 
+
   if [ "${desktop}" = "test" ] ; then
     base_list="$(cat "${cwd}/packages/test_base")"
     vital_base="$(cat "${cwd}/packages/vital/test_base")"
@@ -153,9 +180,7 @@ base()
   cp /etc/resolv.conf ${release}/etc/resolv.conf
   mkdir -p ${release}/var/cache/pkg
   mount_nullfs ${packages_storage} ${release}/var/cache/pkg
-  # shellcheck disable=SC2086
-  pkg -r ${release} -R "${cwd}/pkg/" install -y -r ${PKG_CONF}_base ${base_list}
-  # shellcheck disable=SC2086
+  pkg -r ${release} -R "${cwd}/pkg/" install -yq -r ${PKG_CONF}_base ${base_list}
   pkg -r ${release} -R "${cwd}/pkg/" set -y -v 1 ${vital_base}
   rm ${release}/etc/resolv.conf
   umount ${release}/var/cache/pkg
@@ -175,6 +200,9 @@ set_ghostbsd_version()
 
 packages_software()
 {
+  echo "## Building SOFTWARE ##" 
+  echo "## Building SOFTWARE ##" 
+  echo "" 
   if [ "${build_type}" = "unstable" ] ; then
     cp pkg/GhostBSD_Unstable.conf ${release}/etc/pkg/GhostBSD.conf
   fi
@@ -182,14 +210,23 @@ packages_software()
   mkdir -p ${release}/var/cache/pkg
   mount_nullfs ${packages_storage} ${release}/var/cache/pkg
   mount -t devfs devfs ${release}/dev
-  de_packages="$(cat "${cwd}/packages/${desktop}")"
+
+## List Software and Install ## 
+
   common_packages="$(cat "${cwd}/packages/common")"
   drivers_packages="$(cat "${cwd}/packages/drivers")"
+  de_packages="$(cat "${cwd}/packages/${desktop}")"
+echo "## Building SOFTWARE - common ##"
+  pkg -c ${release} install -qy ${common_packages}
+echo "## Building SOFTWARE - drivers ##"
+  pkg -c ${release} install -qy ${drivers_packages}
+echo "## Building SOFTWARE - desktop ##"
+  pkg -c ${release} install -qy ${de_packages}
+
+## List Vital Packages and Set Vital ##  
+
   vital_de_packages="$(cat "${cwd}/packages/vital/${desktop}")"
   vital_common_packages="$(cat "${cwd}/packages/vital/common")"
-  # shellcheck disable=SC2086
-  pkg -c ${release} install -y ${de_packages} ${common_packages} ${drivers_packages}
-  # shellcheck disable=SC2086
   pkg -c ${release} set -y -v 1 ${vital_de_packages}  ${vital_common_packages}
   mkdir -p ${release}/proc
   mkdir -p ${release}/compat/linux/proc
@@ -224,10 +261,10 @@ rc()
   chroot ${release} sysrc devfs_system_ruleset="devfsrules_common"
   chroot ${release} sysrc moused_enable="YES"
   chroot ${release} sysrc dbus_enable="YES"
-  chroot ${release} sysrc lightdm_enable="NO"
+  chroot ${release} sysrc lightdm_enable="YES"
   chroot ${release} sysrc webcamd_enable="YES"
   chroot ${release} sysrc firewall_enable="YES"
-  chroot ${release} sysrc firewall_type="workstation"
+  chroot ${release} sysrc firewall_type="open"
   chroot ${release} sysrc cupsd_enable="YES"
   chroot ${release} sysrc avahi_daemon_enable="YES"
   chroot ${release} sysrc avahi_dnsconfd_enable="YES"
@@ -257,6 +294,7 @@ desktop_config()
 
 uzip()
 {
+  echo "## ZFS Snapshot to System Image ##"
   install -o root -g wheel -m 755 -d "${cd_root}"
   mkdir "${cd_root}/data"
   zfs snapshot ghostbsd@clean
@@ -311,6 +349,7 @@ boot()
 
 image()
 {
+  echo "## Building ISO & torrent ##"
   cd script
   sh mkisoimages.sh -b $label "$iso_path" ${cd_root}
   cd -
@@ -328,9 +367,17 @@ image()
   cd -
 }
 
+### Prepare: Workspace, System Base, Set Version, Test or Desktop?
+### Desktop: Desktop Base, X Drivers, rc Config,  
+### Unzip -> RAMDISK + boot ->  mkisoimages.sh, Write .torrent
+
+echo "## Workspace ##"
 workspace
+echo "## BASE ##"
 base
+echo "## Versioning ##"
 set_ghostbsd_version
+echo "## Not test Desktop ##"
 if [ "${desktop}" != "test" ] ; then
   packages_software
   fetch_x_drivers_packages
@@ -338,7 +385,26 @@ if [ "${desktop}" != "test" ] ; then
   desktop_config
   ghostbsd_config
 fi
+echo "## uzip - ZFS Snapshot - Sytem Image ##"
 uzip
+echo "## RAMDISK ##"
 ramdisk
+echo "## BOOT ##"
 boot
+echo "## ISO and torrent ##"
 image
+
+## Closing
+
+echo "## GhostBSD-build" 
+echo "##"
+echo "## COMPLETE - " `date -Iseconds`
+echo "##  STARTED - " `date -r ${starttime} -Iseconds`
+echo "##"
+endtime=$(date +%s)
+difftime=$((endtime - starttime))
+echo "##    TIMER - "$difftime" seconds"
+echo "##     TIME - "`date -u -r ${difftime} +%H:%M:%S`
+echo "##"
+echo "##############################################"
+

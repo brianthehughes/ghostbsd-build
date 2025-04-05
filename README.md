@@ -1,5 +1,23 @@
 ghostbsd-build
 ==============
+
+## Experimental !!
+
+This version has been heavily modified:
+- attempting to address common vs desktop package profiles.
+- updated build.sh verbosity (headers for functions, quieter packages)
+- updated build.sh with start/end/summary timer
+- attempting to proof of concept 'thinner' desktop - *gx*
+
+#### (Option) Please build unstable only
+```
+./build.sh -d xfce -b unstable
+./build.sh -d mate -b unstable
+./build.sh -d gx -b unstable
+```   
+
+Original README.md follows
+
 Live media creator for GhostBSD distribution
 
 ## Introduction
