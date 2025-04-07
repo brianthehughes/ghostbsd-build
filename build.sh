@@ -59,6 +59,7 @@ done
 
 ## Let's make this set the "-unstable"
 # release_stamp="-unstable"
+release_stamp=""
 
 if [ "${build_type}" = "test" ] ; then
   PKG_CONF="FreeBSD"
@@ -224,11 +225,11 @@ packages_software()
   common_packages="$(cat "${cwd}/packages/common")"
   drivers_packages="$(cat "${cwd}/packages/drivers")"
   de_packages="$(cat "${cwd}/packages/${desktop}")"
-echo "## Building SOFTWARE - common ##"
+  echo "## Building SOFTWARE - common ##"
   pkg -c ${release} install -qy ${common_packages}
-echo "## Building SOFTWARE - drivers ##"
+  echo "## Building SOFTWARE - drivers ##"
   pkg -c ${release} install -qy ${drivers_packages}
-echo "## Building SOFTWARE - desktop ##"
+  echo "## Building SOFTWARE - desktop ##"
   pkg -c ${release} install -qy ${de_packages}
 
 ## List Vital Packages and Set Vital ##  
