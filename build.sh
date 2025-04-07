@@ -58,6 +58,7 @@ do
 done
 
 ## Let's make this set the "-unstable"
+## MANUAL -unstable, OR NONE ## $version-unstable-$desktop
 # release_stamp="-unstable"
 release_stamp=""
 
@@ -117,10 +118,6 @@ live_user="ghost"
 export live_user
 
 time_stamp=""
-
-## MANUAL -unstable, OR NONE ## $version-unstable-$desktop
-
-# release_stamp="-unstable"
 label="GhostBSD"
 
 

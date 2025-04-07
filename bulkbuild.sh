@@ -1,30 +1,23 @@
 #!/bin/sh
 
 echo "##############################"
-echo "## Build UNSTABLE"
-echo
+echo "## Build UNSTABLE ?          #"
+echo "##"
+echo "## Ctrl-C to stop            #"
+read -p "Press enter to continue   # " reply
+echo "##"
 ./build.sh -d mate -b unstable
 ./build.sh -d xfce -b unstable
 ./build.sh -d gx -b unstable
-
-echo "##############################"
-echo "## Build RELEASE ?"
-echo
-while true; do
-    read -p "Build release? " yn
-    case $yn in
-      [Nn]* ) exit;;
-      [Yy]* ) read -p "Did you update RELEASE in build.sh? " yn
-      case
-        [Nn]* ) exit;;
-        [Yy]* ) break;;
-      esac
-
-    esac
-done
+echo "###############################"
+echo "## Build RELEASE ?            #"
+echo "##"
+echo "## Ctrl-C to stop             #"
+read -p "## Press enter to continue   # " reply
+echo "##"
 echo "###############################"
 echo "## Building RELEASE"
-echo
+echo "##"
 ./build.sh -d mate
 ./build.sh -d xfce
 ./build.sh -d gx
