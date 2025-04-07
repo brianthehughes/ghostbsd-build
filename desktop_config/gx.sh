@@ -10,7 +10,7 @@ set -e -u
 lightdm_setup()
 {
   sed -i '' "s@#greeter-session=example-gtk-gnome@greeter-session=slick-greeter@" "${release}/usr/local/etc/lightdm/lightdm.conf"
-  sed -i '' "s@#user-session=default@user-session=icewm@" "${release}/usr/local/etc/lightdm/lightdm.conf"
+  sed -i '' "s@#user-session=default@user-session=icewm-session@" "${release}/usr/local/etc/lightdm/lightdm.conf"
 }
 
 setup_xinit()

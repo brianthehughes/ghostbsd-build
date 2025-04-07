@@ -1,3 +1,5 @@
+cups
+cups-filters
 drm-kmod
 foomatic-db
 fusefs-ext2
@@ -7,8 +9,6 @@ ghostbsd-icons
 ghostbsd-utils
 ghostbsd-wallpapers25
 ghostbsd-slick-greeter-settings
-ghostbsd-update-scripts
-ghostbsd-pkg-conf
 nss_mdns
 pc-sysinstall
 pkg
@@ -20,3 +20,4 @@ webrtc-audio-processing
 xconfig
 xorg-minimal
 zip
+plank

@@ -57,12 +57,16 @@ do
    esac
 done
 
+## Let's make this set the "-unstable"
+# release_stamp="-unstable"
+
 if [ "${build_type}" = "test" ] ; then
   PKG_CONF="FreeBSD"
 elif [ "${build_type}" = "release" ] ; then
   PKG_CONF="GhostBSD"
 elif [ "${build_type}" = "unstable" ] ; then
   PKG_CONF="GhostBSD_Unstable"
+  release_stamp="-unstable"
 else
   printf "\t-b Build type: unstable or release"
   exit 1
@@ -112,8 +116,12 @@ live_user="ghost"
 export live_user
 
 time_stamp=""
-release_stamp="-unstable"
+
+## MANUAL -unstable, OR NONE ## $version-unstable-$desktop
+
+# release_stamp="-unstable"
 label="GhostBSD"
+
 
 workspace()
 {

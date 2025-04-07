@@ -1,4 +1,5 @@
 cups
+cups-filters
 ghostbsd-fonts
 ghostbsd-icons
 ghostbsd-utils
@@ -6,5 +7,7 @@ gnome-keyring
 nss_mdns
 pkg
 slick-greeter
+unzip
 webrtc-audio-processing
+xconfig
 xorg-minimal

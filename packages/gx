@@ -1,4 +1,3 @@
-plank
 waterfox
 claws-mail
 fish
@@ -6,9 +5,10 @@ bashtop
 xterm
 icewm
 arandr
-qt5ct
-qt6ct
 featherpad
+roxterm
 git
 transmission-utils
+transmission
 rsync
+remmina

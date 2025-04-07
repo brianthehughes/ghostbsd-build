@@ -4,13 +4,13 @@ cursor-dmz-theme
 dconf-editor
 freedesktop-sound-theme
 ghostbsd-mate
+ghostbsd-mate-themes
+ghostbsd-mate-settings
 station-tweak
-cups
-cups-filters
 evolution
 firefox
 fish
 rhythmbox
 shotwell
 vlc
-plank
+
