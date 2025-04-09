@@ -146,8 +146,8 @@ workspace()
   # Create necessary directories for the build
   mkdir -p ${livecd} ${base} ${iso} ${packages_storage} ${release}
 
-  # Create a new pool image file of 4GB
-  POOL_SIZE='4g'
+  # Create a new pool image file of 8GB
+  POOL_SIZE='8g'
   truncate -s ${POOL_SIZE} ${livecd}/pool.img
   
   # Attach the pool image as a memory disk
@@ -186,7 +186,7 @@ base()
   cp /etc/resolv.conf ${release}/etc/resolv.conf
   mkdir -p ${release}/var/cache/pkg
   mount_nullfs ${packages_storage} ${release}/var/cache/pkg
-  pkg -r ${release} -R "${cwd}/pkg/" install -yq -r ${PKG_CONF}_base ${base_list}
+  pkg -r ${release} -R "${cwd}/pkg/" install -y -r ${PKG_CONF}_base ${base_list}
   pkg -r ${release} -R "${cwd}/pkg/" set -y -v 1 ${vital_base}
   rm ${release}/etc/resolv.conf
   umount ${release}/var/cache/pkg
@@ -223,11 +223,11 @@ packages_software()
   drivers_packages="$(cat "${cwd}/packages/drivers")"
   de_packages="$(cat "${cwd}/packages/${desktop}")"
   echo "## Building SOFTWARE - common ##"
-  pkg -c ${release} install -qy ${common_packages}
+  pkg -c ${release} install -y ${common_packages}
   echo "## Building SOFTWARE - drivers ##"
-  pkg -c ${release} install -qy ${drivers_packages}
+  pkg -c ${release} install -y ${drivers_packages}
   echo "## Building SOFTWARE - desktop ##"
-  pkg -c ${release} install -qy ${de_packages}
+  pkg -c ${release} install -y ${de_packages}
 
 ## List Vital Packages and Set Vital ##  
 

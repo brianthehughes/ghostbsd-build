@@ -2,22 +2,25 @@
 
 echo "##############################"
 echo "## Build UNSTABLE ?          #"
-echo "##"
+echo "##                           #"
 echo "## Ctrl-C to stop            #"
-read -p "Press enter to continue   # " reply
+# read -p "Press enter to continue      # " reply
+echo "##                           #"
+echo "##############################"
+echo "## Building UNSTABLE"
 echo "##"
 ./build.sh -d mate -b unstable
 ./build.sh -d xfce -b unstable
 ./build.sh -d gx -b unstable
 echo "###############################"
 echo "## Build RELEASE ?            #"
-echo "##"
+echo "##                            #"
 echo "## Ctrl-C to stop             #"
-read -p "## Press enter to continue   # " reply
-echo "##"
+# read -p "## Press enter to continue    # " reply
+echo "##                            #"
 echo "###############################"
 echo "## Building RELEASE"
 echo "##"
-./build.sh -d mate
-./build.sh -d xfce
-./build.sh -d gx
+./build.sh -d mate -b release
+./build.sh -d xfce -b release
+./build.sh -d gx -b release
