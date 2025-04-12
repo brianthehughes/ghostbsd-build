@@ -12,6 +12,8 @@ echo "##"
 ./build.sh -d mate -b unstable
 ./build.sh -d xfce -b unstable
 ./build.sh -d gx -b unstable
+./build.sh -d lxqt -b unstable
+
 echo "###############################"
 echo "## Build RELEASE ?            #"
 echo "##                            #"
@@ -24,3 +26,5 @@ echo "##"
 ./build.sh -d mate -b release
 ./build.sh -d xfce -b release
 ./build.sh -d gx -b release
+./build.sh -d lxqt -b release
+

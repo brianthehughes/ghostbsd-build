@@ -114,7 +114,7 @@ export release
 
 cd_root="${livecd}/cd_root"
 
-live_user="ghost"
+live_user="ghostbsd"
 export live_user
 
 time_stamp=""
@@ -242,6 +242,10 @@ packages_software()
 
 fetch_x_drivers_packages()
 {
+  echo "##########################"
+  echo "# Get nvidia X Drivers "
+  echo "#"
+  echo
   if [ "${build_type}" = "release" ] ; then
     pkg_url=$(pkg -R pkg/ -vv | grep '/stable.*/latest' | cut -d '"' -f2)
   else
@@ -252,6 +256,7 @@ fetch_x_drivers_packages()
   echo """$(pkg -R "${cwd}/pkg/" rquery -x -r ${PKG_CONF} '%n %n-%v.pkg' 'nvidia-driver' | grep -v libva)""" > ${release}/xdrivers/drivers-list
   pkg_list="""$(pkg -R "${cwd}/pkg/" rquery -x -r ${PKG_CONF} '%n-%v.pkg' 'nvidia-driver' | grep -v libva)"""
   for line in $pkg_list ; do
+    echo "${pkg_url}/All/$line"
     fetch -o ${release}/xdrivers "${pkg_url}/All/$line"
   done
 }
@@ -402,15 +407,15 @@ image
 
 ## Closing
 
+endtime=$(date +%s)
+difftime=$((endtime - starttime))
+
 echo "## GhostBSD-build" 
 echo "##"
 echo "## COMPLETE - " `date -Iseconds`
 echo "##  STARTED - " `date -r ${starttime} -Iseconds`
 echo "##"
-endtime=$(date +%s)
-difftime=$((endtime - starttime))
 echo "##    TIMER - "$difftime" seconds"
 echo "##     TIME - "`date -u -r ${difftime} +%H:%M:%S`
 echo "##"
 echo "##############################################"
-
