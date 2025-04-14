@@ -14,6 +14,10 @@ echo "##"
 ./build.sh -d gx -b unstable
 ./build.sh -d lxqt -b unstable
 
+exit
+
+# Unstable Only
+
 echo "###############################"
 echo "## Build RELEASE ?            #"
 echo "##                            #"
