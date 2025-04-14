@@ -186,7 +186,7 @@ base()
   cp /etc/resolv.conf ${release}/etc/resolv.conf
   mkdir -p ${release}/var/cache/pkg
   mount_nullfs ${packages_storage} ${release}/var/cache/pkg
-  pkg -r ${release} -R "${cwd}/pkg/" install -y -r ${PKG_CONF}_base ${base_list}
+  pkg -r ${release} -R "${cwd}/pkg/" install -yq -r ${PKG_CONF}_base ${base_list}
   pkg -r ${release} -R "${cwd}/pkg/" set -y -v 1 ${vital_base}
   rm ${release}/etc/resolv.conf
   umount ${release}/var/cache/pkg
@@ -223,11 +223,11 @@ packages_software()
   drivers_packages="$(cat "${cwd}/packages/drivers")"
   de_packages="$(cat "${cwd}/packages/${desktop}")"
   echo "## Building SOFTWARE - common ##"
-  pkg -c ${release} install -y ${common_packages}
+  pkg -c ${release} install -yq ${common_packages}
   echo "## Building SOFTWARE - drivers ##"
-  pkg -c ${release} install -y ${drivers_packages}
+  pkg -c ${release} install -yq ${drivers_packages}
   echo "## Building SOFTWARE - desktop ##"
-  pkg -c ${release} install -y ${de_packages}
+  pkg -c ${release} install -yq ${de_packages}
 
 ## List Vital Packages and Set Vital ##  
 
