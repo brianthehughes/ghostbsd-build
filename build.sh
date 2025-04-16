@@ -276,7 +276,7 @@ rc()
   chroot ${release} sysrc webcamd_enable="YES"
   chroot ${release} sysrc firewall_enable="YES"
   chroot ${release} sysrc firewall_type="open"
-  chroot ${release} sysrc cupsd_enable="YES"
+  chroot ${release} sysrc cupsd_enable="NO"
   chroot ${release} sysrc avahi_daemon_enable="YES"
   chroot ${release} sysrc avahi_dnsconfd_enable="YES"
   chroot ${release} sysrc ntpd_enable="YES"

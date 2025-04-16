@@ -1,13 +1,9 @@
-cups
-cups-filters
 drm-kmod
 foomatic-db
 fusefs-ext2
 gbi
 ghostbsd-fonts
 ghostbsd-icons
-ghostbsd-utils
-ghostbsd-utils
 ghostbsd-wallpapers25
 ghostbsd-slick-greeter-settings
 nss_mdns
@@ -15,7 +11,6 @@ pc-sysinstall
 pkg
 python
 slick-greeter
-system-config-printer
 unzip
 webrtc-audio-processing
 xconfig
