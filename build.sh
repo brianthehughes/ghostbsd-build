@@ -186,8 +186,10 @@ base()
   cp /etc/resolv.conf ${release}/etc/resolv.conf
   mkdir -p ${release}/var/cache/pkg
   mount_nullfs ${packages_storage} ${release}/var/cache/pkg
-  pkg -r ${release} -R "${cwd}/pkg/" install -yq -r ${PKG_CONF}_base ${base_list}
-  pkg -r ${release} -R "${cwd}/pkg/" set -y -v 1 ${vital_base}
+    pkg -r ${release} -R "${cwd}/pkg/" install -yq -r ${PKG_CONF}_base ${base_list}
+  #
+  # pkg -r ${release} -R "${cwd}/pkg/" set -y -v 1 ${vital_base}
+  #
   rm ${release}/etc/resolv.conf
   umount ${release}/var/cache/pkg
   touch ${release}/etc/fstab
@@ -230,10 +232,10 @@ packages_software()
   pkg -c ${release} install -yq ${de_packages}
 
 ## List Vital Packages and Set Vital ##  
-
-  vital_de_packages="$(cat "${cwd}/packages/vital/${desktop}")"
-  vital_common_packages="$(cat "${cwd}/packages/vital/common")"
-  pkg -c ${release} set -y -v 1 ${vital_de_packages}  ${vital_common_packages}
+#
+#  vital_de_packages="$(cat "${cwd}/packages/vital/${desktop}")"
+#  vital_common_packages="$(cat "${cwd}/packages/vital/common")"
+#  pkg -c ${release} set -y -v 1 ${vital_de_packages}  ${vital_common_packages}
   mkdir -p ${release}/proc
   mkdir -p ${release}/compat/linux/proc
   rm ${release}/etc/resolv.conf
