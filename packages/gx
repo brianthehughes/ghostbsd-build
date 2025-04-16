@@ -1,7 +1,13 @@
 fish
-bashtop
 icewm
 featherpad
 roxterm
 arandr
 waterfox
+octopkg
+sudo
+setxkbmap
+xmodmap
+xdg-user-dirs
+networkmgr
+webcamd
