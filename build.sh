@@ -233,9 +233,10 @@ packages_software()
 
 ## List Vital Packages and Set Vital ##  
 #
-#  vital_de_packages="$(cat "${cwd}/packages/vital/${desktop}")"
-#  vital_common_packages="$(cat "${cwd}/packages/vital/common")"
+  vital_de_packages="$(cat "${cwd}/packages/vital/${desktop}")"
+  vital_common_packages="$(cat "${cwd}/packages/vital/common")"
 #  pkg -c ${release} set -y -v 1 ${vital_de_packages}  ${vital_common_packages}
+
   mkdir -p ${release}/proc
   mkdir -p ${release}/compat/linux/proc
   rm ${release}/etc/resolv.conf
@@ -266,7 +267,7 @@ fetch_x_drivers_packages()
 rc()
 {
   chroot ${release} touch /etc/rc.conf
-  chroot ${release} sysrc rc_startmsgs="NO"
+  chroot ${release} sysrc rc_startmsgs="YES"
   chroot ${release} sysrc hostname='livecd'
   chroot ${release} sysrc zfs_enable="YES"
   chroot ${release} sysrc kld_list="linux linux64 cuse fusefs hgame"
@@ -279,7 +280,7 @@ rc()
   chroot ${release} sysrc webcamd_enable="YES"
   chroot ${release} sysrc firewall_enable="YES"
   chroot ${release} sysrc firewall_type="open"
-  chroot ${release} sysrc cupsd_enable="NO"
+  chroot ${release} sysrc cupsd_enable="YES"
   chroot ${release} sysrc avahi_daemon_enable="YES"
   chroot ${release} sysrc avahi_dnsconfd_enable="YES"
   chroot ${release} sysrc ntpd_enable="YES"

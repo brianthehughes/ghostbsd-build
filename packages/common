@@ -9,6 +9,7 @@ ghostbsd-slick-greeter-settings
 nss_mdns
 pc-sysinstall
 pkg
+sudo
 python
 slick-greeter
 unzip
