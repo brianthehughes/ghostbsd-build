@@ -101,7 +101,7 @@ else
   community=""
 fi
 
-workdir="/usr/local"
+workdir="/usr/jenkins"
 
 livecd="${workdir}/ghostbsd-build"
 
@@ -119,7 +119,6 @@ export live_user
 
 time_stamp=""
 label="GhostBSD"
-
 
 workspace()
 {
