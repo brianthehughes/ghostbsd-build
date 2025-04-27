@@ -101,6 +101,7 @@ else
   community=""
 fi
 
+
 workdir="/usr/jenkins"
 
 livecd="${workdir}/ghostbsd-build"
@@ -125,7 +126,7 @@ workspace()
   # Unmount any existing mounts and clean up
   umount -f ${packages_storage} >/dev/null 2>/dev/null || true
   umount -f ${release}/dev >/dev/null 2>/dev/null || true
-  zpool destroy ghostbsd >/dev/null 2>/dev/null || true
+  zpool destroy zgx >/dev/null 2>/dev/null || true
   umount -f ${release} >/dev/null 2>/dev/null || true
 
   # Remove old build directory if it exists
@@ -153,13 +154,13 @@ workspace()
   mdconfig -f ${livecd}/pool.img -u 0
 
   # Attempt to create the ZFS pool with error handling
-  if ! zpool create -O mountpoint="${release}" -O compression=zstd-9 ghostbsd /dev/md0; then
+  if ! zpool create -O mountpoint="${release}" -O compression=zstd-9 zgx /dev/md0; then
     # Provide detailed error message in case of failure
-    echo "Error: Failed to create ZFS pool 'ghostbsd' with the following command:"
-    echo "zpool create -O mountpoint='${release}' -O compression=zstd-9 ghostbsd /dev/md0"
+    echo "Error: Failed to create ZFS pool 'zgx' with the following command:"
+    echo "zpool create -O mountpoint='${release}' -O compression=zstd-9 zgx /dev/md0"
     
     # Clean up resources in case of failure
-    zpool destroy ghostbsd 2>/dev/null || true
+    zpool destroy zgx 2>/dev/null || true
     mdconfig -d -u 0 2>/dev/null || true
     rm -f ${livecd}/pool.img 2>/dev/null || true
     
@@ -311,8 +312,8 @@ uzip()
   echo "## ZFS Snapshot to System Image ##"
   install -o root -g wheel -m 755 -d "${cd_root}"
   mkdir "${cd_root}/data"
-  zfs snapshot ghostbsd@clean
-  zfs send -p -c -e ghostbsd@clean | dd of=/usr/local/ghostbsd-build/cd_root/data/system.img status=progress bs=1M
+  zfs snapshot zgx@clean
+  zfs send -p -c -e zgx@clean | dd of="${workdir}/ghostbsd-build/cd_root/data/system.img" status=progress bs=1M
 }
 
 ramdisk()
@@ -349,9 +350,9 @@ boot()
   umount ${release} >/dev/null 2>/dev/null || true
   
   # Export ZFS pool and ensure it's clean
-  zpool export ghostbsd
+  zpool export zgx
   timeout=10
-  while zpool status ghostbsd >/dev/null 2>&1; do
+  while zpool status zgx >/dev/null 2>&1; do
     sleep 1
     timeout=$((timeout - 1))
     if [ $timeout -eq 0 ]; then
