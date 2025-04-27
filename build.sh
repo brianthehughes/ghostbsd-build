@@ -136,7 +136,7 @@ workspace()
   fi
 
   # Detach memory device if previously attached
-  mdconfig -d -u 0 >/dev/null 2>/dev/null || true
+  mdconfig -d -u 7 >/dev/null 2>/dev/null || true
   
   # Remove old pool image if it exists
   if [ -f "${livecd}/pool.img" ] ; then
@@ -151,17 +151,17 @@ workspace()
   truncate -s ${POOL_SIZE} ${livecd}/pool.img
   
   # Attach the pool image as a memory disk
-  mdconfig -f ${livecd}/pool.img -u 0
+  mdconfig -f ${livecd}/pool.img -u 7
 
   # Attempt to create the ZFS pool with error handling
-  if ! zpool create -O mountpoint="${release}" -O compression=zstd-9 zgx /dev/md0; then
+  if ! zpool create -O mountpoint="${release}" -O compression=zstd-9 zgx /dev/md7; then
     # Provide detailed error message in case of failure
     echo "Error: Failed to create ZFS pool 'zgx' with the following command:"
-    echo "zpool create -O mountpoint='${release}' -O compression=zstd-9 zgx /dev/md0"
+    echo "zpool create -O mountpoint='${release}' -O compression=zstd-9 zgx /dev/md7"
     
     # Clean up resources in case of failure
     zpool destroy zgx 2>/dev/null || true
-    mdconfig -d -u 0 2>/dev/null || true
+    mdconfig -d -u 7 2>/dev/null || true
     rm -f ${livecd}/pool.img 2>/dev/null || true
     
     # Exit with an error code
