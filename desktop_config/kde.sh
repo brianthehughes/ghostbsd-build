@@ -11,8 +11,10 @@ lightdm_setup()
 {
   sed -i '' "s@#greeter-session=example-gtk-gnome@greeter-session=slick-greeter@" "${release}/usr/local/etc/lightdm/lightdm.conf"
   sed -i '' "s@#user-session=default@user-session=startplasma-x11@" "${release}/usr/local/etc/lightdm/lightdm.conf"
-  sysctl net.local/stream.recvspace=65536
-  sysctl net.local.stream.sendspace=65536
+
+# kde messaging
+#  sysctl net.local/stream.recvspace=65536
+#  sysctl net.local.stream.sendspace=65536
 }
 
 setup_xinit()
