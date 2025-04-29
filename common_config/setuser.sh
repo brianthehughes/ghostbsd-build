@@ -17,7 +17,7 @@ ghostbsd_setup_liveuser()
   chroot "${release}" su "${live_user}" -c "echo 'gtk-application-prefer-dark-theme = true' >> /home/${live_user}/.config/gtk-3.0/settings.ini"
   chroot "${release}" su "${live_user}" -c "echo 'gtk-theme-name = Vimix' >> /home/${live_user}/.config/gtk-3.0/settings.ini"
   chroot "${release}" su "${live_user}" -c "echo 'gtk-icon-theme-name = Vivacious-Colors-Dark' >> /home/${live_user}/.config/gtk-3.0/settings.ini"
-  chroot "${release}" su "${live_user}" -c "echo 'gtk-font-name = Droid Sans Bold 12' >> /home/${live_user}/.config/gtk-3.0/settings.ini"
+  chroot "${release}" su "${live_user}" -c "echo 'gtk-font-name = Droid Sans Bold 10' >> /home/${live_user}/.config/gtk-3.0/settings.ini"
   mkdir -p "${release}/root/.config/gtk-3.0"
   {
     echo '[Settings]'

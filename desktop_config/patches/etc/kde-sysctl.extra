@@ -1,0 +1,2 @@
+net.local.stream.recvspace=65536
+net.local.stream.sendspace=65536
