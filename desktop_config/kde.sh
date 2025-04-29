@@ -13,7 +13,7 @@ lightdm_setup()
   sed -i '' "s@#user-session=default@user-session=startplasma-x11@" "${release}/usr/local/etc/lightdm/lightdm.conf"
 
 # kde messaging
-  cat "${cwd}/desktop_config/patches/etc/fstab.extra" >> "${release}/etc/sysctl.conf"
+  cat "${cwd}/desktop_config/patches/etc/kde-sysctl.extra" >> "${release}/etc/sysctl.conf"
 }
 
 setup_xinit()
