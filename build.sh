@@ -118,7 +118,9 @@ cd_root="${livecd}/cd_root"
 live_user="ghostbsd"
 export live_user
 
-time_stamp="date -u +'%Y%m%d %H:%M'"
+time_stamp=""
+time_stamp=$(date -u +'%Y%m%d %H:%M')
+
 label="GhostBSD"
 
 workspace()
