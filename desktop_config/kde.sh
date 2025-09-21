@@ -18,7 +18,15 @@ lightdm_setup()
 
 setup_xinit()
 {
-  chroot "${release}" su "${live_user}" -c "echo 'exec dbus-launch --exit-with-x11 ck-launch-session startplasma-x11' > /home/${live_user}/.xinitrc"
+  # Disable screen locking in KDE for live_user
+  chroot "${release}" su "${live_user}" -c "
+    mkdir -p /home/${live_user}/.config
+    kwriteconfig5 --file /home/${live_user}/.config/kscreenlockerrc --group Daemon --key Autolock false
+    kwriteconfig5 --file /home/${live_user}/.config/kscreenlockerrc --group Daemon --key LockOnResume false
+    echo 'exec dbus-launch --exit-with-x11 ck-launch-session startplasma-x11' > /home/${live_user}/.xinitrc
+  "
+
+  # Set the same .xinitrc for root and skel
   echo "exec dbus-launch --exit-with-x11 ck-launch-session startplasma-x11" > "${release}/root/.xinitrc"
   echo "exec dbus-launch --exit-with-x11 ck-launch-session startplasma-x11" > "${release}/usr/share/skel/dot.xinitrc"
 }
