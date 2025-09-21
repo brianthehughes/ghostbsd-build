@@ -1,5 +1,3 @@
-fish
-sudo
 setxkbmap
 xmodmap
 xdg-user-dirs
