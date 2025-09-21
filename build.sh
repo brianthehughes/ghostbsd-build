@@ -102,7 +102,7 @@ else
 fi
 
 # Let Jenkins control directory.
-workdir="./"
+workdir="."
 
 livecd="${workdir}/ghostbsd-build"
 
