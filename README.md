@@ -73,6 +73,11 @@ or
 ./build.sh -d xfce -b unstable
 ```   
 
+#### (Option) To build GhostBSD with __Gershwin__ as default desktop
+```
+./build.sh -d gershwin -b unstable
+```   
+
 ## Burn an image to cd:
 ```
 cdrecord /usr/local/ghostbsd-build/iso/GhostBSD-22.01.12.iso
