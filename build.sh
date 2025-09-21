@@ -101,8 +101,8 @@ else
   community=""
 fi
 
-# Let Jenkins control directory.
-workdir="."
+# Use /usr/local/jenkins/workspace 
+workdir="/usr/local/jenkins/workspace"
 
 livecd="${workdir}/ghostbsd-build"
 
