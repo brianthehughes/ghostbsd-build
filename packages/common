@@ -1,4 +1,5 @@
-drm-kmod
+cups
+cups-filters
 exfat-utils
 firefox
 fish
@@ -11,8 +12,10 @@ fusefs-ntfs
 gbi
 ghostbsd-fonts
 ghostbsd-icons
+ghostbsd-utils
 ghostbsd-wallpapers25
 ghostbsd-slick-greeter-settings
+gnome-keyring
 nss_mdns
 pc-sysinstall
 pkg
@@ -20,6 +23,7 @@ sudo
 python
 slick-greeter
 unzip
+vlc
 webrtc-audio-processing
 xconfig
 xorg-minimal

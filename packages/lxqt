@@ -1,10 +1,2 @@
-fish
 lxqt
-gopenbox
-sudo
-setxkbmap
-xmodmap
-xdg-user-dirs
-xdg-user-dirss-gtk
-networkmgr
-webcamd
+openbox

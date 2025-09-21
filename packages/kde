@@ -1,6 +1,3 @@
 setxkbmap
 xmodmap
-xdg-user-dirs
-networkmgr
-webcamd
 kde

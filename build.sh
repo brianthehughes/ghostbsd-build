@@ -101,8 +101,8 @@ else
   community=""
 fi
 
-# Use /usr/local/jenkins/workspace 
-workdir="/usr/local/jenkins/workspace"
+# Use /usr/jenkins for GX-Testing builds 
+workdir="/usr/jenkins"
 
 livecd="${workdir}/ghostbsd-build"
 
