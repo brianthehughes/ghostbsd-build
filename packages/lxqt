@@ -1,11 +1,10 @@
 fish
 lxqt
-openbox
-waterfox
-octopkg
+gopenbox
 sudo
 setxkbmap
 xmodmap
 xdg-user-dirs
+xdg-user-dirss-gtk
 networkmgr
 webcamd
