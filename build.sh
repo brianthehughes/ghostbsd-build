@@ -149,7 +149,7 @@ workspace()
   mkdir -p ${livecd} ${base} ${iso} ${packages_storage} ${release}
 
   # Create a new pool image file of 8GB
-  POOL_SIZE='8g'
+  POOL_SIZE='10g'
   truncate -s ${POOL_SIZE} ${livecd}/pool.img
   
   # Attach the pool image as a memory disk
