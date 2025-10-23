@@ -3,6 +3,7 @@ ghostbsd-build
 
 GhostBSD-QTILE _ concept
 
+```
 qtile
 fish / zsh
 xrdp
@@ -16,8 +17,10 @@ textual
 filezilla
 hexchat / irssi
 vlc
+```
 
 Features
+
 - GhostBSD logo background
 - preconfigured Plank apps/menu
 - firewall off
