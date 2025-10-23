@@ -1,22 +1,33 @@
 ghostbsd-build
 ==============
 
-## Experimental !!
+GhostBSD-QTILE _ concept
 
-This version has been heavily modified:
-- attempting to address common vs desktop package profiles.
-- updated build.sh verbosity (headers for functions, quieter packages)
-- updated build.sh with start/end/summary timer
-- attempting to proof of concept 'thinner' desktop - *gx*
+qtile
+fish / zsh
+xrdp
+lightdm
+plank
+xfce4-terminal / alacritty
+software-station
+backup-station
+waterfox
+textual
+filezilla
+hexchat / irssi
+vlc
 
-#### (Option) Please build unstable only
-```
-./build.sh -d xfce -b unstable
-./build.sh -d mate -b unstable
-./build.sh -d gx -b unstable
-```   
+Features
+- GhostBSD logo background
+- preconfigured Plank apps/menu
+- firewall off
+- vm/light option (no hardware/wifi drivers)
+- lightdm install/live user: ghost pw: bsd
 
-Original README.md follows
+
+
+
+## Original README.md follows
 
 Live media creator for GhostBSD distribution
 
